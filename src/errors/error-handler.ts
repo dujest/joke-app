@@ -10,10 +10,6 @@ export const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("Juka je kralj");
-  console.log(err.constructor.name);
-  console.error(err);
-
   if (err instanceof CustomAPIError) {
     return res.status(err.statusCode).json({ msg: err.message });
   }
