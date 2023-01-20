@@ -14,10 +14,12 @@ export const errorHandlerMiddleware = (
     return res.status(err.statusCode).json({ msg: err.message });
   }
   if (err instanceof ValidationError) {
-    return res.status(400).json({ msg: err.errors });
+    return res.status(StatusCodes.BAD_REQUEST).json({ msg: err.errors });
   }
   if (err instanceof JsonWebTokenError) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ msg: err.message });
   }
-  return res.status(500).json({ msg: "Something went wrong, try again!" });
+  return res
+    .status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json({ msg: "Something went wrong, try again!" });
 };
